@@ -11,11 +11,11 @@ function App() {
   return (
     <Router>
       <div className="page-content">
-          <Header />
-      <Switch>
-        <Route path="/">
-          <HomePage />
-        </Route>
+        <Header />
+        <Switch>
+          <Route path="/">
+            <HomePage />
+          </Route>
         </Switch>
       </div>
       <Footer />
