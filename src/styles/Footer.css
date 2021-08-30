@@ -1,0 +1,11 @@
+.site-footer{
+    background: #333;
+    padding: 50px 0;
+}
+.copyright{
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    color:#707070;
+    font-size: 12px;
+    text-align: center;
+}

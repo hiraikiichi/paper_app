@@ -1,0 +1,42 @@
+.top{
+
+}
+
+.title{
+    font-size: 50px;
+    
+}
+
+.site-header{
+    z-index: 100;
+    background: #e4e4e4;
+    display: flex;
+    padding: 30px 20px;
+    position: fixed;
+    justify-content: space-between;
+    width: 100%;
+    top: 0px;
+}
+.reaponsive-memu{
+    
+}
+.headerlink{
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 30px;
+    color:#707070;
+    text-decoration: none;
+    margin-left: 50px;
+}
+.gnav__menu{
+    display: flex;
+    margin-right: 70px;
+}
+.gnav__menu__item{
+    margin-left: 20px;
+}
+.gnav__menu__item a{
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 30px;
+    color: #707070;
+    text-decoration: none;
+}
