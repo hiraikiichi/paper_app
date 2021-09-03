@@ -1,12 +1,15 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useDropzone } from "react-dropzone";
-import { spacing } from '@material-ui/system';
-import { Box, Container, Paper, Typography } from "@material-ui/core";
+
+import { storage } from "../Firebase";
+
+import { Box, Paper, Typography } from "@material-ui/core";
 import BackupIcon from '@material-ui/icons/Backup';
 import Button from 'react-bootstrap/Button';
 import '../styles/Homepage.css';
-import firebase from 'firebase/compat/app';
-import { storage } from "../Firebase";
+// import firebase from 'firebase/compat/app';
+// import { spacing } from '@material-ui/system';
+
 
 const textstyle = {
     // height: "100",
@@ -18,44 +21,94 @@ const textstyle = {
 
 const Upload_img = () => {
 
-    const [uploadfile, setUploadfile] = useState();
+    // const [uploadfile, setUploadfile] = useState({name:""});
     const maxSize = 3 * 1024 * 1024;
 
     const accept = "image/jpeg, image/jpg, image/png";
-    const [fileUrl, setFileUrl] = useState();
+    // const [fileUrl, setFileUrl] = useState<string>();
+    const [myFiles, setMyFiles] = useState<File[]>([]);
+    const [clickable, setClickable] = useState(false);
 
     // dropzone
-    const onDrop = useCallback((acceptedFiles) => {
+    const onDrop = useCallback((acceptedFiles: File[]) => {
+        if (!acceptedFiles[0]) return;
+        try {
+            setMyFiles([...acceptedFiles]);
+            setClickable(true);
+            // handlePreview(acceptedFiles);
+          } catch (error) {
+            alert(error);
+          }
+
+        /*
         if (acceptedFiles.length > 0) {
-            // const src = URL.createObjectURL(acceptedFiles[0]);
-            // setFileUrl(src);
+            const src = URL.createObjectURL(acceptedFiles[0]);
+            setFileUrl(src);
             setUploadfile(acceptedFiles[0]);
-            console.log("読み込み", acceptedFiles[0], "A", acceptedFiles);
+            console.log("読み込み", acceptedFiles[0]);
+        } else {
+            console.log("画像以外読み込み", acceptedFiles);
         }
-        console.log(acceptedFiles);
+        */
     }, []);
 
+    // 読み込み失敗
     const onDropRejected = () => {
-        alert("画像以外のファイルです．");
+        alert("読み込みに失敗しました");
       };
 
     // 初期化
-    const { getRootProps, getInputProps, isDragActive, acceptedFiles, isDragReject, fileRejections } = useDropzone({
+    const { getRootProps, getInputProps, isDragActive, acceptedFiles, isDragReject, fileRejections, open } = useDropzone({
         accept,
         onDrop,
         onDropRejected,
         minSize: 1,
         maxSize,
+        noClick: true
     });
 
-    const files = acceptedFiles.map(file => (
-        <p key={file.name}>
-          {file.name}
-        </p>
-    ));
-    // upload
+    // FileListからfile.nameを取得し表示
+    const files = useMemo(() =>
+        acceptedFiles.map(file => (
+            <p key={file.name}>
+                {file.name}
+            </p>
+        )
+        ), [acceptedFiles]);
+    
+    // fileupload時のエラー
+    const uploaderror = useMemo(() =>
+        fileRejections.map(({ file, errors }) => (
+            <div className="alert alert-danger" role="alert" key={file.name}>
+                {/* {fileRejections[0].errors[0].message} */}
+                {/* {file.name} - {file.size} bytes */}
+                {errors.map(e => (
+                    <div key={e.code}>{e.message}</div>
+                ))}
+            </div>
+        )
+        ), [fileRejections]);
+    
+    // 画像アップロード
+    // const [message, setMessage] = useState("");
+
+    const upload = async (accepterdImg: any) => {
+        try {
+            const uploadTask: any = storage
+                .ref(`/images/${myFiles[0].name}`)
+                .put(myFiles[0]);
+            // uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED);
+            // setMessage('登録しました');
+            alert("登録しました");
+        } catch (error) {
+            console.log("エラーキャッチ", error);
+            alert("エラー");
+        }
+    };
+
     /*
-    const [message, setMessage] = useState();
+    // upload
+    const [message, setMessage] = useState("");
 
     //submit
     const upload = async () => {
@@ -64,7 +117,7 @@ const Upload_img = () => {
         let url = "";
         if (uploadfile.name) {
             const storageref = firebase.storage().ref('sample/' + uploadfile.name);
-            const snapshot = await storageref.put(uploadfile);
+            const snapshot = await storageref.put(uploadfile.name);
             url = await snapshot.ref.getDownloadURL();
         }
 
@@ -74,11 +127,11 @@ const Upload_img = () => {
                 filename: uploadfile.name,
                 fileUrl: url,
             });
-
             setMessage('登録しました');
         }
-    }
+    };
     */
+    
     return (
         <>
         <Box sx={{mt:20,　mb:30, mx: "auto", width: 600, height: 300}} textAlign="center">
@@ -90,6 +143,7 @@ const Upload_img = () => {
                 // className="textstyle"
             >
                 <input {...getInputProps()} />
+                {/* ドラッグされているかどうか */}
 
                 {isDragActive ? (
                         <Typography >
@@ -102,19 +156,16 @@ const Upload_img = () => {
                                 <p>ここにファイルをドラッグ＆ドロップ</p>
                                 <p>もしくは、クリックして選択</p>
                                 <br />
-                                <Button variant="primary">画像を選択</Button>
+                                <Button variant="primary" onClick={open}>画像を選択</Button>
                                 <p>{files}</p>
-                                {isDragReject ? <div className="alert alert-danger" role="alert">ファイルタイプが一致しません</div> : null}
-                                {fileRejections.length > 0 ? <div className="alert alert-danger" role="alert">
-                                    {fileRejections[0].errors[0].message}
-                                </div> : null}
+                                <p>{uploaderror}</p>
                             </Typography>
-                )}
+                    )}
+                    {isDragReject ? <div className="alert alert-danger" role="alert">ファイルタイプが一致しません</div> : null}
             </Paper>
-            <button type="button" className="btn btn-primary mt-2" >登録</button>
+                <button type="button" className="btn btn-primary mt-2" onClick={upload}>登録</button>
+                {/* {message ? <Alert className="alert alert-success mt-2" role="alert">{message}</Alert> : null} */}
             </Box>
-            {/*<button type="button" className="btn btn-primary mt-2" onClick={upload}>登録</button> */}
-            {/* {message ? <div className="alert alert-success mt-2" role="alert">{message}</div> : null} */}
             </ >
   );
 };
