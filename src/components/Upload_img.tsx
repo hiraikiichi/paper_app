@@ -134,7 +134,7 @@ const Upload_img = () => {
     
     return (
         <>
-        <Box sx={{mt:20,　mb:30, mx: "auto", width: 600, height: 300}} textAlign="center">
+        <Box sx={{mt:20,　mb:30, mx: "auto", width: "auto", height: 300}} textAlign="center">
             <Paper
                 variant="outlined"
                 square
