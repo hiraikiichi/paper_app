@@ -28,6 +28,8 @@ const Upload_img = () => {
     // const [fileUrl, setFileUrl] = useState<string>();
     const [myFiles, setMyFiles] = useState<File[]>([]);
     const [clickable, setClickable] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
+    const toggleCheckbox = () => {setIsChecked(!isChecked);};
 
     // dropzone
     const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -162,8 +164,12 @@ const Upload_img = () => {
                             </Typography>
                     )}
                     {isDragReject ? <div className="alert alert-danger" role="alert">ファイルタイプが一致しません</div> : null}
-            </Paper>
-                <button type="button" className="btn btn-primary mt-2" onClick={upload}>登録</button>
+                </Paper>
+                <p style={{marginTop:"1rem"}}>
+                    <input type="checkbox" name="agree" id="agreeCheck" onChange={() => toggleCheckbox()} />
+                    <label htmlFor="agreeCheck">利用規約に同意する</label>
+                </p>
+                <button type="button" className="btn btn-primary mt-2" disabled={!isChecked} onClick={upload}>登録</button>
                 {/* {message ? <Alert className="alert alert-success mt-2" role="alert">{message}</Alert> : null} */}
             </Box>
             </ >
