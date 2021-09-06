@@ -1,8 +1,11 @@
 // import '../styles/Header.css';
 import React from "react";
+import { Link } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import '../styles/Header.css';
+
+import logo_img from '../card-image.svg'
 
 const Header = () => {
     return (

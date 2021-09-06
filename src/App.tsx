@@ -16,17 +16,19 @@ function App() {
     <Router>
       <div className="page-content">
         <Header />
-        <Switch>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Route path="/contact">
-            <ContactPage />
-          </Route>
-          <Route>
-            <NotFoundPage />
-          </Route>
-        </Switch>
+        <div style={{marginTop:"10rem"}}>
+          <Switch>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+            <Route path="/contact">
+              <ContactPage />
+            </Route>
+            <Route>
+              <NotFoundPage />
+            </Route>
+          </Switch>
+        </div>
       </div>
       <Footer />
     </Router>

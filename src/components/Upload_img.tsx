@@ -6,6 +6,7 @@ import { storage } from "../Firebase";
 import { Box, Paper, Typography } from "@material-ui/core";
 import BackupIcon from '@material-ui/icons/Backup';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal'
 import '../styles/Homepage.css';
 // import firebase from 'firebase/compat/app';
 // import { spacing } from '@material-ui/system';
@@ -14,7 +15,7 @@ import '../styles/Homepage.css';
 const textstyle = {
     // height: "100",
     padding: 70,
-    border: "3px dotted #888",
+    border: "5px dashed #888",
     backgroundColor: "rgb(230 230 230)"
 };
 
@@ -29,7 +30,11 @@ const Upload_img = () => {
     const [myFiles, setMyFiles] = useState<File[]>([]);
     const [clickable, setClickable] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
-    const toggleCheckbox = () => {setIsChecked(!isChecked);};
+    const toggleCheckbox = () => { setIsChecked(!isChecked); };
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     // dropzone
     const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -136,7 +141,7 @@ const Upload_img = () => {
     
     return (
         <>
-        <Box sx={{mt:20,　mb:30, mx: "auto", width: "auto", height: 300}} textAlign="center">
+        <Box sx={{mb:30, mx: "auto", width: "auto", height: 300}} textAlign="center">
             <Paper
                 variant="outlined"
                 square
@@ -155,8 +160,8 @@ const Upload_img = () => {
                     ) : (
                             <Typography >
                                 <p><BackupIcon style={{ fontSize: 40 }} /></p>
-                                <p>ここにファイルをドラッグ＆ドロップ</p>
-                                <p>もしくは、クリックして選択</p>
+                                <p>ここに画像をドラッグ＆ドロップ</p>
+                                <p>JPGまたはPNG 3MBまで</p>
                                 <br />
                                 <Button variant="primary" onClick={open}>画像を選択</Button>
                                 <p>{files}</p>
@@ -165,9 +170,22 @@ const Upload_img = () => {
                     )}
                     {isDragReject ? <div className="alert alert-danger" role="alert">ファイルタイプが一致しません</div> : null}
                 </Paper>
-                <p style={{marginTop:"1rem"}}>
+                
+                <p style={{ marginTop: "1rem" }}>
                     <input type="checkbox" name="agree" id="agreeCheck" onChange={() => toggleCheckbox()} />
-                    <label htmlFor="agreeCheck">利用規約に同意する</label>
+                    <label onClick={handleShow} style={{color:"blue"}}>利用規約</label>
+                    <label htmlFor="agreeCheck">に同意する</label>
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>利用規約</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>ここに規約かく</Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Close
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                 </p>
                 <button type="button" className="btn btn-primary mt-2" disabled={!isChecked} onClick={upload}>登録</button>
                 {/* {message ? <Alert className="alert alert-success mt-2" role="alert">{message}</Alert> : null} */}
