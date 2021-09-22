@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap');
+div.page-content{
+    font-family: 'Noto Sans JP', sans-serif;
+}
+div.topmargin{
+    margin-top:10rem;
+}

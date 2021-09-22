@@ -16,7 +16,7 @@ function App() {
     <Router>
       <div className="page-content">
         <Header />
-        <div style={{marginTop:"10rem"}}>
+        <div className="topmargin">
           <Switch>
             <Route exact path="/">
               <HomePage />
