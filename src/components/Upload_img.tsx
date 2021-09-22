@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useDropzone } from "react-dropzone";
 
 import { storage } from "../Firebase";
-import * as tf from '@tensorflow/tfjs';
+// import * as tf from '@tensorflow/tfjs';
 
 import { Box, Paper, Typography } from "@material-ui/core";
 import BackupIcon from '@material-ui/icons/Backup';
@@ -12,7 +12,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import '../styles/Homepage.css';
-import { url } from 'inspector';
+// import { url } from 'inspector';
 // import firebase from 'firebase/compat/app';
 // import { spacing } from '@material-ui/system';
 
@@ -50,7 +50,7 @@ const Upload_img = () => {
     const [clickable, setClickable] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const toggleCheckbox = () => { setIsChecked(!isChecked); };
-    const [imageUrl, setImageUrl] = useState("");
+    // const [imageUrl, setImageUrl] = useState("");
     const [resultRaw, setResultRaw] = useState("");
     const [resultGrad, setResultGrad] = useState("");
     const [resultPhotoName, setResultPhotoName] = useState("");
@@ -131,7 +131,7 @@ const Upload_img = () => {
                 .ref(`/images/${myFiles[0].name}`)
                 .put(myFiles[0]).then(snapshot => {
                     snapshot.ref.getDownloadURL().then(function (downloadURL) {
-                        console.log('File available at', downloadURL);
+                        // console.log('File available at', downloadURL);
                         const requestOptions ={
                             method: 'POST',
                             headers:{'Content-Type': 'application/json'},
@@ -139,15 +139,15 @@ const Upload_img = () => {
                         };
                         try {
                             fetch('https://paperjudgment.herokuapp.com/send', requestOptions
-                                // fetch('http://localhost:8080/send', requestOptions
                             ).then((response) => response.json()
                             ).then((responseJson) => {
-                                console.log('json=', responseJson);
+                                // console.log('json=', responseJson);
                                 setResultRaw(responseJson.raw_url);
                                 setResultGrad(responseJson.grad_url);
                                 setResultPhotoName(responseJson.pred_answer);
                                 // setphotoList(responseJson.paper_product)
                                 const array = responseJson.paper_product;
+                                // []の方が望ましい
                                 const arrProducts: string[] = new Array;
                                 const arrUrl: string[] = new Array;
                                 array.forEach((elm: any) => {
@@ -162,19 +162,10 @@ const Upload_img = () => {
                                         // console.log(`key: ${key} value: ${elm[key]}`)
                                     })
                                 })
-                                console.log(arrProducts);
-                                console.log(arrUrl);
+                                // console.log(arrProducts);
+                                // console.log(arrUrl);
                                 setProduct(arrProducts);
                                 setProductUrl(arrUrl);
-                                //const photoList = responseJson.paper_product;
-                                // photoList.unshift(responseJson.paper_product);
-                                // const photoProducts = photoList.map((photo:any) =>
-                                    // <p>{photo}</p>
-                                // );
-                                //const resultPhotoProducts = PhotoList.map((product:any) =>
-                                    //<li>{product}</li>
-                                //);
-                                
                                 }).catch((error) => {
                                     console.log(error);
                                     alert("APIエラー");
@@ -187,8 +178,8 @@ const Upload_img = () => {
                         // console.log(imageUrl);
                         //alert(imageUrl);
                     })
-                    const url = snapshot.ref.getDownloadURL();
-                    console.log("URLはこちら", url); // ダウンロードURL
+                    // const url = snapshot.ref.getDownloadURL();
+                    // console.log("URLはこちら", url); // ダウンロードURL
                     //alert(url);
                 });
             // uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED);
@@ -240,14 +231,14 @@ const Upload_img = () => {
                                     <p>JPGまたはPNG 3MBまで</p>
                                     <br />
                                     <Button variant="primary" onClick={open}>画像を選択</Button>
-                                    <p>{files}</p>
-                                    <p>{uploaderror}</p>
+                                    <a>{files}</a>
+                                    <a>{uploaderror}</a>
                                 </Typography>
                         )}
                         {isDragReject ? <div className="alert alert-danger" role="alert">ファイルタイプが一致しません</div> : null}
                     </Paper>
 
-                    <p style={{ marginTop: "1rem" }}>
+                    <div style={{ marginTop: "2rem" }}>
                         <input type="checkbox" name="agree" id="agreeCheck" onChange={() => toggleCheckbox()} />
                         <label onClick={handleShow} style={{color:"blue"}}>利用規約</label>
                         <label htmlFor="agreeCheck">に同意する</label>
@@ -262,7 +253,7 @@ const Upload_img = () => {
                                 </Button>
                             </Modal.Footer>
                         </Modal>
-                    </p>
+                    </div>
                     <button type="button" className="btn btn-primary mt-2" disabled={!isChecked} onClick={upload}>判定する</button>
                     {/* {message ? <Alert className="alert alert-success mt-2" role="alert">{message}</Alert> : null} */}
                     </Box>
@@ -272,16 +263,11 @@ const Upload_img = () => {
                     <Row>
                         <Col>
                             <p className="resultphotoname">{resultPhotoName}</p>
-                            <p>
-                                {/*{photoList.product}*/}
-                                {/*{photoList}*/}
-                                {/*{product}*/}
-                            </p>
                             <ul>{num}</ul>
                         </Col>
                         <Col xs lg="5">
-                        <img className="resultimg" src={resultRaw} />
-                        <img className="resultimg" src={resultGrad} />
+                        <img alt="" className="resultimg" src={resultRaw} />
+                        <img alt="" className="resultimg" src={resultGrad} />
                         </Col>
                     </Row>
                 </Container>

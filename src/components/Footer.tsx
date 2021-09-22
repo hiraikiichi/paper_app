@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 
 const Footer = () => {
   return (
-    <div className="page-footer" style={{ backgroundColor: "rgb(33, 37, 41)" }}>
+    <div className="page-footer" style={{ marginTop:"100px", backgroundColor: "rgb(33, 37, 41)" }}>
       <Container className="pt-3 pb-3">
         <Row>
           <Col className="text-center mt-1 mb-1">
