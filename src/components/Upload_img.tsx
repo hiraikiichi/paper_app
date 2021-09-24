@@ -11,6 +11,7 @@ import Modal from 'react-bootstrap/Modal'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Spinner from 'react-bootstrap/Spinner'
 import '../styles/Homepage.css';
 // import { url } from 'inspector';
 // import firebase from 'firebase/compat/app';
@@ -58,6 +59,7 @@ const Upload_img = () => {
     const [product, setProduct] = useState<string []>([]);
     const [productUrl, setProductUrl] = useState<string []>([]);
 
+    const [loading, setLoading] = useState(false);
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -126,6 +128,7 @@ const Upload_img = () => {
     // 画像アップロード
     // const [message, setMessage] = useState("");
     const upload = async (accepterdImg: any) => {
+        setLoading(true);
         try {
             const uploadTask: any = storage
                 .ref(`/images/${myFiles[0].name}`)
@@ -162,21 +165,19 @@ const Upload_img = () => {
                                         // console.log(`key: ${key} value: ${elm[key]}`)
                                     })
                                 })
-                                // console.log(arrProducts);
-                                // console.log(arrUrl);
                                 setProduct(arrProducts);
                                 setProductUrl(arrUrl);
+                                setLoading(false);
                                 }).catch((error) => {
                                     console.log(error);
                                     alert("APIエラー");
+                                    setLoading(false);
                                     })
                         } catch (error) {
                             console.log("エラーキャッチ", error);
                             alert("エラー");
+                            setLoading(false);
                         }
-                        // setImageUrl(downloadURL);
-                        // console.log(imageUrl);
-                        //alert(imageUrl);
                     })
                     // const url = snapshot.ref.getDownloadURL();
                     // console.log("URLはこちら", url); // ダウンロードURL
@@ -188,17 +189,13 @@ const Upload_img = () => {
         } catch (error) {
             console.log("エラーキャッチ", error);
             alert("エラー");
+            setLoading(false);
         }
-        // console.log("useState", product)
-        // console.log("useState", productUrl)
-
     };
-    // if (product.length !== 0) {
-        // console.log("useState", product);
-    // }
+    // 結果の商品ボタンだすやつ
     const num = product.map((number, idx) => (
         <li>
-            <a href={productUrl[idx]}>
+            <a href={productUrl[idx]} >
             <button className="paperbutton">{number}</button>
             </a>
         </li>
@@ -257,8 +254,13 @@ const Upload_img = () => {
                     <button type="button" className="btn btn-primary mt-2" disabled={!isChecked} onClick={upload}>判定する</button>
                     {/* {message ? <Alert className="alert alert-success mt-2" role="alert">{message}</Alert> : null} */}
                     </Box>
+                {/*<p>{ load }</p>*/}
             </section>
             <section>
+                <div style={{textAlign:"center"}}>
+                    {/* trueの場合，falseの場合 */}
+                    {loading ? <Spinner className="text-center" animation="border" /> : ""}
+                </div>
                 <Container className="mb-5">
                     <Row>
                         <Col>
