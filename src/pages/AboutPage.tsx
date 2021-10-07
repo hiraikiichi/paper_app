@@ -3,12 +3,17 @@ import '../styles/Aboutpage.css';
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Button from 'react-bootstrap/Button'
 
 import step1Image from '../img/moments.svg';
 import step2Image from '../img/uploadImage.svg';
 import step3Image from '../img/displayImage.svg';
+import printingImage from '../img/printing.svg';
 
 const AboutPage = () => {
+  const goMainPage = () => {
+    window.location.href = "/";
+  };
   return (
     <>
       <Container style={{ marginTop: "10rem", marginBottom: "2rem" }}>
@@ -24,7 +29,7 @@ const AboutPage = () => {
         </Row>
       </Container>
       <div style={{ backgroundColor: "#f5f5f5" }}>
-        <Container style={{ marginBottom: "40rem" }}>
+        <Container style={{ marginBottom: "10rem" }}>
           <Row>
             <Col className="d-flex justify-content-center">
               <div>
@@ -56,9 +61,25 @@ const AboutPage = () => {
               </div>
             </Col>
           </Row>
-
         </Container>
       </div>
+
+      <Container style={{ marginBottom: "10rem" }}>
+
+        <Row>
+          <Col>
+            <img style={{ width: "50%" }} className="stepImage" alt="" src={printingImage} />
+          </Col>
+          <Col>
+            <div>
+              <p className="step">写真用紙推定</p>
+              <div className="usebtn">
+              <Button variant="primary" onClick={goMainPage}>使ってみる</Button>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 };

@@ -27,6 +27,9 @@ img.stepImage{
     display: flex;
     margin: auto;
 }
+div.usebtn{
+    text-align: center;
+}
 
 @media screen and (max-width: 500px) {
     p.topExpl{
