@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ContactPage from "./pages/ContactPage";
+import AboutPage from "./pages/AboutPage";
 
 import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,6 +24,9 @@ function App() {
             </Route>
             <Route path="/contact">
               <ContactPage />
+            </Route>
+            <Route path="/about">
+              <AboutPage />
             </Route>
             <Route>
               <NotFoundPage />
