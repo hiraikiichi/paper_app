@@ -5,15 +5,11 @@ import Row from "react-bootstrap/Row";
 
 const ContactPage = () => {
   return (
-    <Container style={{ marginTop:"10rem", marginBottom:"40rem"
-}}>
-      <Row>
-        <Col className="mx-3">
-          <h3>ここにContactページつくる</h3>
-          
-        </Col>
-      </Row>
-    </Container>
+    <div style={{textAlign:"center"}}>
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe8fUuNu9KqFbCrIOZloW5UhdJ10VQBqdsgfw5opERhtZI2aw/viewform?embedded=true" width="640" height="677" frameBorder="0" >
+        読み込んでいます…
+      </iframe>
+    </div>
   );
 };
 
