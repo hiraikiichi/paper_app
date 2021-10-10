@@ -16,7 +16,8 @@ const AboutPage = () => {
   };
   return (
     <>
-      <Container style={{ marginTop: "10rem", marginBottom: "2rem" }}>
+      {/* 説明 */}
+      <Container style={{ marginTop: "5rem", marginBottom: "4rem" }}>
         <Row>
           <Col className="d-flex justify-content-center">
             <div>
@@ -28,12 +29,14 @@ const AboutPage = () => {
           </Col>
         </Row>
       </Container>
+
+      {/* 使い方 */}
       <div style={{ backgroundColor: "#f5f5f5" }}>
-        <Container style={{ marginBottom: "10rem" }}>
+        <Container style={{ marginTop: "5rem", marginBottom: "10rem", paddingBottom: "2rem" }}>
           <Row>
             <Col className="d-flex justify-content-center">
               <div>
-                <p className="topExpl bord">使い方</p>
+                <p className="topUseExpl bord">使い方</p>
               </div>
             </Col>
           </Row>
@@ -53,7 +56,7 @@ const AboutPage = () => {
                 <p className="stepsentence">写真をアップロード</p>
               </div>
             </Col>
-            <Col className="d-flex justify-content-center" lg={4} md={12}>
+            <Col lg={4} md={12}>
               <div>
                 <p className="step">Step3</p>
                 <img style={{width:"70%", marginTop:"30px", marginBottom:"50px"}} className="stepImage" alt="" src={step3Image} />
@@ -68,7 +71,7 @@ const AboutPage = () => {
 
         <Row>
           <Col>
-            <img style={{ width: "50%" }} className="stepImage" alt="" src={printingImage} />
+            <img className="printerImage" alt="" src={printingImage} />
           </Col>
           <Col>
             <div>

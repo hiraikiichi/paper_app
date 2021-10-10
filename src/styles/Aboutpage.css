@@ -2,6 +2,15 @@ p.topExpl{
     font-size: 30px;
     justify-content: center;
     display: flex;
+    /*margin-top: 5rem;*/
+    margin-bottom: 3rem;
+}
+p.topUseExpl{
+    font-size: 30px;
+    justify-content: center;
+    display: flex;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 p.mainExpl{
     font-size: 20px;
@@ -27,6 +36,12 @@ img.stepImage{
     display: flex;
     margin: auto;
 }
+img.printerImage{
+    text-align: center;
+    display: flex;
+    margin: auto;
+    width: 50%;
+}
 div.usebtn{
     text-align: center;
 }
@@ -37,6 +52,13 @@ div.usebtn{
         justify-content: center;
         display: flex;
     }
+    p.topUseExpl{
+        font-size: 20px;
+        justify-content: center;
+        display: flex;
+        margin-top: 5rem;
+        margin-bottom: 3rem;
+    }
     p.mainExpl{
         font-size: 12px;
         justify-content: center;
@@ -45,6 +67,12 @@ div.usebtn{
     p.bord{
         width: 200px;
         border-bottom: 1px solid rgb(94, 94, 94);
+    }
+    img.printerImage{
+        text-align: center;
+        display: flex;
+        margin: auto;
+        width: 100%;
     }
 
 }

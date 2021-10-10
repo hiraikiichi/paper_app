@@ -14,7 +14,7 @@ const HomePage = () => {
                 <Container className="mb-5">
                     <Row>
                         <Col className="d-flex justify-content-center youshi">
-                            <div>AIが写真に合う用紙を選定</div>
+                            <div>AIが写真に合う用紙を判定</div>
                         </Col>
                         <Col className="sectionImagecenter">
                             <img className="selectionImage" alt="" src={selectionImage} />
